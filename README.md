@@ -1,118 +1,98 @@
-# BodyMart Admin Frontend
+# BodyMart Website
 
-BodyMart Admin Frontend is a React + Vite dashboard for managing gym and retail operations from a single interface. It connects to a backend API for authentication, dashboard analytics, products, inventory, users, memberships, orders, deliveries, and reports.
+BodyMart Website is a Vite + React storefront for a fitness brand. It includes a marketing homepage, a product shop connected to a backend API, a membership signup flow, and an about page that surfaces store highlights from the backend.
 
 ## Features
 
-- Authentication with login and registration flows
-- Persistent session handling with token storage in `localStorage`
-- Role-based navigation for `admin`, `stock_manager`, and `delivery_personnel`
-- Dashboard overview with sales and order insights
-- CRUD-ready modules for products, inventory, users, memberships, orders, deliveries, and reports
-- Report analytics and CSV export support
-- Light and dark theme toggle
+- Landing page with brand messaging and calls to action
+- Shop page with live product loading, search, and category filtering
+- Simple cart flow with checkout submission to the backend
+- Membership request form that sends new signups to the backend
+- About page with live store highlight data
+- Admin login link configurable through environment variables
 
 ## Tech Stack
 
 - React 18
-- React Router DOM 6
-- Vite 5
+- React Router DOM
+- Vite
 - Axios
+
+## Routes
+
+- `/` - homepage
+- `/shop` - product listing and cart entry point
+- `/membership` - membership plans and signup form
+- `/about` - brand details and store highlights
+
+## Environment Variables
+
+Create a `.env` file based on `.env.example`:
+
+```env
+VITE_API_BASE_URL=http://localhost:4000/api
+VITE_ADMIN_URL=http://localhost:5173/login
+```
+
+### Variable Notes
+
+- `VITE_API_BASE_URL`: Base URL for the backend API used by the storefront
+- `VITE_ADMIN_URL`: URL for the admin dashboard login page shown in the header
+
+## Expected API Endpoints
+
+The frontend expects the backend to expose these routes under `VITE_API_BASE_URL`:
+
+- `GET /store/products`
+- `GET /store/highlights`
+- `POST /store/memberships`
+- `POST /store/orders`
+
+## Getting Started
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create your local environment file:
+
+```bash
+cp .env.example .env
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+4. Build for production:
+
+```bash
+npm run build
+```
+
+5. Preview the production build locally:
+
+```bash
+npm run preview
+```
 
 ## Project Structure
 
 ```text
 src/
-  components/    Shared layout and navigation
-  context/       Authentication and theme providers
-  pages/         Route-level screens
-  services/      API clients for each module
+  components/    Shared layout components
+  hooks/         Cart state and checkout logic
+  pages/         Route-level pages
+  services/      Axios client and API helpers
   styles/        Global styling
 ```
 
-## Getting Started
+## Notes
 
-### Prerequisites
-
-- Node.js 18+ recommended
-- npm
-- A running backend API
-
-### Installation
-
-1. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-2. Create a local environment file:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-3. Set the backend API base URL in `.env`:
-
-   ```env
-   VITE_API_BASE_URL=http://localhost:4000/api
-   ```
-
-4. Start the development server:
-
-   ```bash
-   npm run dev
-   ```
-
-## Available Scripts
-
-- `npm run dev` starts the Vite development server
-- `npm run build` creates a production build in `dist/`
-- `npm run preview` serves the production build locally
-
-## Routes and Modules
-
-Public routes:
-
-- `/login`
-- `/register`
-
-Protected modules:
-
-- `/dashboard`
-- `/products`
-- `/inventory`
-- `/users`
-- `/memberships`
-- `/orders`
-- `/deliveries`
-- `/reports`
-
-Available modules depend on the signed-in user's role.
-
-## Environment Variables
-
-| Variable | Description | Default |
-| --- | --- | --- |
-| `VITE_API_BASE_URL` | Base URL for the backend API | `http://localhost:4000/api` |
-
-## API Notes
-
-The frontend expects the backend to expose endpoints such as:
-
-- `/auth/login`
-- `/auth/register`
-- `/dashboard`
-- `/products`
-- `/inventory`
-- `/users`
-- `/memberships`
-- `/orders`
-- `/deliveries`
-- `/reports`
-
-Authentication tokens are attached as a Bearer token after login or registration.
-
-## Build Output
-
-Production assets are generated in `dist/`.
+- Product and membership data are loaded from a backend service and are not hardcoded in the UI.
+- Checkout uses a lightweight in-memory cart and submits orders directly to the backend.
+- The admin dashboard itself is a separate application linked from this frontend.
