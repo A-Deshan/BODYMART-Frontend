@@ -5,7 +5,7 @@
 - Admin dashboard
 - Workout & meal planning
 
-## 🛠 Tech Stack
+## Tech Stack
 - Frontend: React
 - Backend: Node.js, Express
 - Database: MongoDB
@@ -15,7 +15,7 @@
 /backend
 /admin
 
-## ⚙️ Setup
+## Setup
 
 ### Backend
 cd backend
